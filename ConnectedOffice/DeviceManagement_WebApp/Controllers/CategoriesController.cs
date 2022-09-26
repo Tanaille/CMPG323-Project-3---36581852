@@ -7,46 +7,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(ConnectedOfficeContext context)
-        {
-            _context = context;
+        public CategoriesController(ICategoryRepository categoryRepository)
+        { 
+            _categoryRepository = categoryRepository;
         }
 
-        // GET: Categories
+        // GET: All categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            var categories = _categoryRepository.GetAll();
+
+            return View(categories);
+
         }
 
-        // GET: Categories/Details/5
+        // GET: Category by ID
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = _categoryRepository.GetById(id);
 
             return View(category);
-        }
-
-        // GET: Categories/Create
-        public IActionResult Create()
-        {
-            return View();
         }
 
         // POST: Categories/Create
@@ -56,11 +46,22 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            category.CategoryId = Guid.NewGuid();
-            _context.Add(category);
-            await _context.SaveChangesAsync();
+            _categoryRepository.Add(category);
+
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: Categories/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+
+
+        /*
+
 
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -141,5 +142,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             return _context.Category.Any(e => e.CategoryId == id);
         }
+
+        */
     }
 }
