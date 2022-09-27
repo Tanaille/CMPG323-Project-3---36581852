@@ -35,11 +35,11 @@ namespace DeviceManagement_WebApp.Repository
         }
 
         // POST: Create category
-        public async void Add([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
+        public void Add([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
             category.CategoryId = Guid.NewGuid();
             _context.Add(category);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public Category Edit(Guid? id)
@@ -59,6 +59,27 @@ namespace DeviceManagement_WebApp.Repository
             _category.CategoryName = category.CategoryName;
 
              _context.SaveChangesAsync();
+        }
+
+        // POST: Delete category by ID
+        public void Remove(Guid id, Category category)
+        {
+            Category _category = new Category
+            {
+                CategoryId = id
+            };
+
+            _context.Remove(_category);
+
+            _context.SaveChanges();
+        }
+
+        // GET: Categories/Delete/5
+        public Category Delete(Guid? id)
+        {
+            var _category = _context.Category.FirstOrDefault(c => c.CategoryId == id);
+
+            return _category;
         }
     }
 }

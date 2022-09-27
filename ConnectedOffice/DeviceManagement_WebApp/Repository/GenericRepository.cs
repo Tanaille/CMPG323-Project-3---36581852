@@ -33,7 +33,7 @@ namespace DeviceManagement_WebApp.Repository
         {
             return _context.Set<T>().Find(id);
         }
-        public void Remove(T entity)
+        public void Remove(Guid id, T entity)
         {
             _context.Set<T>().Remove(entity);
         }
