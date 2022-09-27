@@ -57,12 +57,6 @@ namespace DeviceManagement_WebApp.Controllers
             return View();
         }
 
-
-
-
-        /*
-
-
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -71,11 +65,8 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = _categoryRepository.Edit(id);
+
             return View(category);
         }
 
@@ -84,30 +75,38 @@ namespace DeviceManagement_WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
+        public async Task<IActionResult> Edit(Guid? id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            if (id != category.CategoryId)
+            _categoryRepository.Edit(id, category);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Categories/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-            try
-            {
-                _context.Update(category);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(category.CategoryId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            return View();
+        }
+
+        /*
+        // POST: Categories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            var category = await _context.Category.FindAsync(id);
+            _context.Category.Remove(category);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
+
+        /*
+
 
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(Guid? id)

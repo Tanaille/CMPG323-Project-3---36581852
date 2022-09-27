@@ -20,7 +20,7 @@ namespace DeviceManagement_WebApp.Repository
         }
 
         // GET: Categories
-        public  IEnumerable<Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             return _context.Category.ToList();  
         }
@@ -39,7 +39,26 @@ namespace DeviceManagement_WebApp.Repository
         {
             category.CategoryId = Guid.NewGuid();
             _context.Add(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+        }
+
+        public Category Edit(Guid? id)
+        {
+            var category = _context.Category
+                .FirstOrDefault(m => m.CategoryId == id);
+
+            return category;
+        }
+
+        // POST: Edit category by ID
+        public void Edit(Guid? id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
+        {
+            var _category = _context.Category.FirstOrDefault(c => c.CategoryId == id);
+
+            _category.CategoryDescription = category.CategoryDescription;
+            _category.CategoryName = category.CategoryName;
+
+             _context.SaveChangesAsync();
         }
     }
 }
