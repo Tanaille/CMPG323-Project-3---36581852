@@ -34,14 +34,6 @@ namespace DeviceManagement_WebApp.Repository
             return device;
         }
 
-        // GET: Devices/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
-        //    ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName");
-        //    return View();
-        //}
-
         // POST: Create device
         public void Add([Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
         {
@@ -69,6 +61,8 @@ namespace DeviceManagement_WebApp.Repository
             _device.DeviceName = device.DeviceName;
             _device.Status = device.Status;
             _device.IsActive = device.IsActive;
+            _device.CategoryId = device.CategoryId;
+            _device.ZoneId = device.ZoneId;
 
             _context.SaveChangesAsync();
         }
