@@ -7,6 +7,5 @@ namespace DeviceManagement_WebApp.Repository
     {
         public void Edit(Guid? id, Zone zone);
         public Zone Edit(Guid? id);
-        public Zone Delete(Guid? id);
     }
 }

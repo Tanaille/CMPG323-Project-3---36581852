@@ -19,67 +19,25 @@ namespace DeviceManagement_WebApp.Repository
 
         }
 
-        // GET: Zones
-        public IEnumerable<Models.Zone> GetAll()
-        {
-            return _context.Zone.ToList();
-        }
-
-        // GET: Zones by ID
-        public async Task<Models.Zone> GetByID(Guid? id)
-        {
-            var zone = await _context.Zone
-                .FirstOrDefaultAsync(z => z.ZoneId == id);
-
-            return zone;
-        }
-
-        // POST: Create zone
-        //public void Add([Bind("ZoneId, ZoneName, ZoneDescription, DateCreated")] Models.Zone zone)
-        //{
-        //    zone.ZoneId = Guid.NewGuid();
-        //    _context.Add(zone);
-        //    _context.SaveChanges();
-        //}
-
+        // GET: Populate zone edit view
         public Models.Zone Edit(Guid? id)
         {
-            var zone = _context.Zone
-                .FirstOrDefault(z => z.ZoneId == id);
+            // Get the zone by ID and return it
+            var _zone = GetById(id);
 
-            return zone;
+            return _zone;
         }
 
         // POST: Edit zone by ID
         public void Edit(Guid? id, [Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Models.Zone zone)
         {
-            var _zone = _context.Zone.FirstOrDefault(z => z.ZoneId == id);
+            // Get the zone by ID, set the zone properties and commit changes
+            var _zone = GetById(id);
 
             _zone.ZoneName = zone.ZoneName;
             _zone.ZoneDescription = zone.ZoneDescription;
 
             _context.SaveChangesAsync();
-        }
-
-        // POST: Delete zone by ID
-        public void Remove(Guid id, Models.Zone zone)
-        {
-            Models.Zone _zone = new Models.Zone()
-            {
-                ZoneId = id
-            };
-
-            _context.Remove(_zone);
-
-            _context.SaveChanges();
-        }
-
-        // GET: Zones/Delete/5
-        public Models.Zone Delete(Guid? id)
-        {
-            var _zone = _context.Zone.FirstOrDefault(z => z.ZoneId == id);
-
-            return _zone;
         }
     }
 }

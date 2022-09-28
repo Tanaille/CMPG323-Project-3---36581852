@@ -9,7 +9,6 @@ using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
-using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -59,7 +58,7 @@ namespace DeviceManagement_WebApp.Controllers
             category.CategoryId = Guid.NewGuid();
             category.DateCreated = DateTime.Now;
 
-            // Add category to DB and return to Device index page
+            // Add category to DB and return to Category index page
             _categoryRepository.Add(category);
 
             return RedirectToAction(nameof(Index));
