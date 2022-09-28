@@ -7,117 +7,101 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(ConnectedOfficeContext context)
-        {
-            _context = context;
+        public CategoriesController(ICategoryRepository categoryRepository)
+        { 
+            _categoryRepository = categoryRepository;
         }
 
-        // GET: Categories
+        // GET: All categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            // Set ViewData to include Category details, then return the view
+            ViewData["CategoryId"] = new SelectList(_categoryRepository.GetAll(), "CategoryId", "CategoryName", "CategoryDescription", "DateCreated");
+
+            return View(_categoryRepository.GetAll());
         }
 
-        // GET: Categories/Details/5
+        // GET: Category by ID
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
+            // Check if category exists
+            if (!_categoryRepository.EntityExists(_categoryRepository.GetById(id)))
                 return NotFound();
-            }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            // Set ViewData to include Category details, then return the view
+            ViewData["CategoryId"] = new SelectList(_categoryRepository.GetAll(), "CategoryId", "CategoryName", "CategoryDescription");
 
-            return View(category);
+            return View(_categoryRepository.GetById(id));
         }
 
-        // GET: Categories/Create
+        // GET: Populate category creation view
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Create category
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
+            // Assign values to Category entity
             category.CategoryId = Guid.NewGuid();
-            _context.Add(category);
-            await _context.SaveChangesAsync();
+            category.DateCreated = DateTime.Now;
+
+            // Add category to DB and return to Category index page
+            _categoryRepository.Add(category);
+
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Edit/5
+        // GET: Populate category edit view
         public async Task<IActionResult> Edit(Guid? id)
         {
+            // Check if category exists
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+            return View(_categoryRepository.Edit(id));
         }
 
-        // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Edit category
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
+        public async Task<IActionResult> Edit(Guid? id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            if (id != category.CategoryId)
-            {
+            // Check if category exists
+            if (!_categoryRepository.EntityExists(_categoryRepository.GetById(id)))
                 return NotFound();
-            }
-            try
-            {
-                _context.Update(category);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(category.CategoryId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            // Edit category and return to Category index page
+            _categoryRepository.Edit(id, category);
+
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Delete/5
+        // GET: Populate the category delete view
         public async Task<IActionResult> Delete(Guid? id)
         {
+            // Check that ID is supplied and that the category exists
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _categoryRepository.GetById(id);
+
             if (category == null)
             {
                 return NotFound();
@@ -126,20 +110,19 @@ namespace DeviceManagement_WebApp.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Delete category
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            // Check if category exists
+            if (!_categoryRepository.EntityExists(_categoryRepository.GetById(id)))
+                return NotFound();
 
-        private bool CategoryExists(Guid id)
-        {
-            return _context.Category.Any(e => e.CategoryId == id);
+            // Remove category from DB and return to index page
+            _categoryRepository.Remove(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
