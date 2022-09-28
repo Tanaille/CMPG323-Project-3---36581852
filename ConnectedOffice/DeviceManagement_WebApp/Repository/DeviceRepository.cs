@@ -22,16 +22,17 @@ namespace DeviceManagement_WebApp.Repository
         // GET: Populate device edit view
         public Device Edit(Guid? id)
         {
-            var device = _context.Device
-                .FirstOrDefault(d => d.DeviceId == id);
+            // Get the device by ID and return it
+            var _device = GetById(id);
 
-            return device;
+            return _device;
         }
 
         // POST: Edit device by ID
         public void Edit(Guid? id, [Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
         {
-            var _device = _context.Device.FirstOrDefault(d => d.DeviceId == id);
+            // Get the device by ID, set the device properties and commit changes
+            var _device = GetById(id);
 
             _device.DeviceName = device.DeviceName;
             _device.Status = device.Status;
