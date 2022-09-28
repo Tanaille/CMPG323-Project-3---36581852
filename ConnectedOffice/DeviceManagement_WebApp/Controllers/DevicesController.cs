@@ -78,6 +78,7 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Populate device edit view
         public async Task<IActionResult> Edit(Guid? id)
         {
+            // Check if device exists
             if (id == null)
             {
                 return NotFound();

@@ -7,6 +7,5 @@ namespace DeviceManagement_WebApp.Repository
     {
         public void Edit(Guid? id, Category category);
         public Category Edit(Guid? id);
-        public Category Delete(Guid? id);
     }
 }
