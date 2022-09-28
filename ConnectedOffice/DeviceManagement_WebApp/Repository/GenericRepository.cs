@@ -23,6 +23,7 @@ namespace DeviceManagement_WebApp.Repository
         public void AddRange(IEnumerable<T> entities)
         {
             _context.Set<T>().AddRange(entities);
+            _context.SaveChanges();
         }
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
@@ -45,6 +46,7 @@ namespace DeviceManagement_WebApp.Repository
         public void RemoveRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
+            _context.SaveChanges();
         }
 
         public bool EntityExists(T entity)
