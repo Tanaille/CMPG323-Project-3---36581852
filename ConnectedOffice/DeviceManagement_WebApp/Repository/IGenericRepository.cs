@@ -15,5 +15,4 @@ namespace DeviceManagement_WebApp.Repository
         void RemoveRange(IEnumerable<T> entities);
         bool EntityExists(T entity);
     }
-
 }

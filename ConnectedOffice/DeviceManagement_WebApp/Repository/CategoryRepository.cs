@@ -38,6 +38,5 @@ namespace DeviceManagement_WebApp.Repository
 
             _context.SaveChangesAsync();
         }
-
     }
 }
