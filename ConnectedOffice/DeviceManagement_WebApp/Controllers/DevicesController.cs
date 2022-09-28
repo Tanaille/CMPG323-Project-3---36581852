@@ -14,7 +14,6 @@ namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
         private readonly IDeviceRepository _deviceRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IZoneRepository _zoneRepository;
