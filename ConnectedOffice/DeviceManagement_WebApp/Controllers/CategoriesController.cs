@@ -16,10 +16,12 @@ namespace DeviceManagement_WebApp.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IGenericRepository<Category> _genericRepository;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryRepository categoryRepository, IGenericRepository<Category> genericRepository)
         { 
             _categoryRepository = categoryRepository;
+            _genericRepository = genericRepository;
         }
 
         // GET: All categories
@@ -46,6 +48,8 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
+            category.CategoryId = Guid.NewGuid();
+            category.DateCreated = DateTime.Now;
             _categoryRepository.Add(category);
 
             return RedirectToAction(nameof(Index));
@@ -97,7 +101,7 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            _categoryRepository.Remove(id, category);
+            _categoryRepository.Remove(id);
             
             return RedirectToAction(nameof(Index));
         }

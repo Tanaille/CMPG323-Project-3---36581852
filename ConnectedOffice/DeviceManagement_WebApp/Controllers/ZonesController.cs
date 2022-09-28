@@ -44,6 +44,8 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
         {
+            zone.ZoneId = Guid.NewGuid();
+            zone.DateCreated = DateTime.Now;
             _zoneRepository.Add(zone);
 
             return RedirectToAction(nameof(Index));
@@ -95,7 +97,7 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id, [Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
         {
-            _zoneRepository.Remove(id, zone);
+            _zoneRepository.Remove(id);
 
             return RedirectToAction(nameof(Index));
         }

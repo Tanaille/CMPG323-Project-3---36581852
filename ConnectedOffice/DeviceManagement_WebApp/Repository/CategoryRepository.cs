@@ -35,12 +35,12 @@ namespace DeviceManagement_WebApp.Repository
         }
 
         // POST: Create category
-        public void Add([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
-        {
-            category.CategoryId = Guid.NewGuid();
-            _context.Add(category);
-            _context.SaveChanges();
-        }
+        //public void Add([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
+        //{
+        //    category.CategoryId = Guid.NewGuid();
+        //    _context.Add(category);
+        //    _context.SaveChanges();
+        //}
 
         public Category Edit(Guid? id)
         {

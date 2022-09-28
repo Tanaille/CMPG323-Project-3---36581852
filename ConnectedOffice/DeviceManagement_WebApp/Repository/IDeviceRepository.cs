@@ -7,6 +7,5 @@ namespace DeviceManagement_WebApp.Repository
     {
         public void Edit(Guid? id, Device device);
         public Device Edit(Guid? id);
-        public Device Delete(Guid? id);
     }
 }

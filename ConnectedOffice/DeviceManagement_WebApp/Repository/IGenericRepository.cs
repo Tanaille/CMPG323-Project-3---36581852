@@ -11,8 +11,9 @@ namespace DeviceManagement_WebApp.Repository
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
-        void Remove(Guid id, T entity);
+        void Remove(Guid id);
         void RemoveRange(IEnumerable<T> entities);
+        bool EntityExists(T entity);
     }
 
 }

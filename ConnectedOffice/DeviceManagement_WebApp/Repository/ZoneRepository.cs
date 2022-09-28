@@ -35,12 +35,12 @@ namespace DeviceManagement_WebApp.Repository
         }
 
         // POST: Create zone
-        public void Add([Bind("ZoneId, ZoneName, ZoneDescription, DateCreated")] Models.Zone zone)
-        {
-            zone.ZoneId = Guid.NewGuid();
-            _context.Add(zone);
-            _context.SaveChanges();
-        }
+        //public void Add([Bind("ZoneId, ZoneName, ZoneDescription, DateCreated")] Models.Zone zone)
+        //{
+        //    zone.ZoneId = Guid.NewGuid();
+        //    _context.Add(zone);
+        //    _context.SaveChanges();
+        //}
 
         public Models.Zone Edit(Guid? id)
         {
