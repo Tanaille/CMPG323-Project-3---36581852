@@ -40,6 +40,8 @@ When editing or deleting a category, zone or device, the API encounters a generi
 
 Refreshing the page or clicking the back button in the browser correctly loads the index pages, and any data modifications show correctly. Backend / database operations seem to be working without issue, as items can be added, changed and deleted correctly.
 
+Due to some issue with forking repositories, the original repository links on the GitHub project page stopped functioning, and statuses could not be updated. The project tasks were recreated, but could not be linked to the repository due to a permissions error cause by the fork.
+
 ### API Operations 
 
 All API functions are accessible via the user interface.
