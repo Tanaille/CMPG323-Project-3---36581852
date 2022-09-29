@@ -79,3 +79,31 @@ The database connection string is stored within the **appsettings.json** file of
 
 ### Reference List
 
+1. https://github.com/JacquiM/CMPG-323-IOT-Device-Management
+2. https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-3.1
+3. https://codewithmukesh.com/blog/repository-pattern-in-aspnet-core/
+4. https://medium.com/oppr/net-core-using-entity-framework-core-in-a-separate-project-e8636f9dc9e5
+5. https://programmingwithmosh.com/net/should-you-split-your-asp-net-mvc-project-into-multiple-projects/
+6. https://procodeguide.com/design/solid-principles-with-csharp-net-core/
+7. https://www.c-sharpcorner.com/article/solid-with-net-core/
+8. https://stackoverflow.com/questions/24068981/how-to-use-generic-type-with-the-database-context-in-ef6-code-first
+9. https://stackoverflow.com/questions/668589/how-can-i-add-an-item-to-a-selectlist-in-asp-net-mvc
+10. https://stackoverflow.com/questions/6018711/generic-way-to-check-if-entity-exists-in-entity-framework
+11. https://stackoverflow.com/questions/9591165/ef-4-how-to-properly-update-object-in-dbcontext-using-mvc-with-repository-patte
+12. https://stackoverflow.com/questions/30088226/asp-net-mvc-4-5-1-redirecttoaction-500-error-only-after-publishing
+13. https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+14. https://techfunda.com/howto/279/update-record-into-database
+15. https://www.geeksforgeeks.org/basic-crud-create-read-update-delete-in-asp-net-mvc-using-c-sharp-and-entity-framework/
+16. https://www.c-sharpcorner.com/article/bind-add-update-delete-data-using-mvc-entity-framework-and-linq/
+17. https://www.codeproject.com/Questions/5324878/Mvc-index-wont-refresh-after-HTTP-post
+18. https://www.dotnettricks.com/learn/mvc/return-view-vs-return-redirecttoaction-vs-return-redirect-vs-return-redirecttoroute
+19. https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design
+20. https://deviq.com/design-patterns/repository-pattern
+21. https://makingloops.com/why-should-you-use-the-repository-pattern/
+22. https://www.pragimtech.com/blog/blazor/rest-api-repository-pattern/
+23. https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/
+24. https://www.baeldung.com/solid-principles
+25. https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+26. https://www.c-sharpcorner.com/article/implement-unit-of-work-and-generic-repository-pattern-in-a-web-api-net-core-pro/
+27. https://code-maze.com/net-core-web-development-part4/
+28. https://www.laneways.agency/software-development-principles/
